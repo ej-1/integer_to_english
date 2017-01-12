@@ -1,9 +1,10 @@
-require 'test_helper'
 require_relative 'integer_to_english'
+require 'minitest'
+require 'minitest/autorun'
 
-class EnglishNumberTest < ActiveSupport::TestCase
+class IntegerToEnglishTest < Minitest::Test
 
-	setup do
+  def setup
     integers_to_english = {
       90 => "ninety",
       80 => "eighty",
@@ -53,25 +54,25 @@ class EnglishNumberTest < ActiveSupport::TestCase
     @numbers_outside_range = [100, 200.102, -100, -200.102]
   end
 
-  test "test_positive_numbers" do
+  def test_positive_numbers
     (1..99).each do |i|
       assert_equal @converted_to_english[i - 1], EnglishNumber.new(i).in_english
     end
   end
 
-  test "test_negative_numbers" do
+  def test_negative_numbers
     (-1..-99).each do |i|
       assert_equal @converted_to_english[i - 1], EnglishNumber.new(i).in_english
     end
   end
 
-  test "test_numbers_with_decimals" do
+  def test_numbers_with_decimals
     @numbers_with_decimals.each do |i|
       assert_equal @converted_to_english[i - 1], EnglishNumber.new(i).in_english
     end
   end
 
-  test "test_numbers_outside_range" do
+  def test_numbers_outside_range
     @numbers_outside_range.each do |i|
       assert_nil EnglishNumber.new(i).in_english
     end
